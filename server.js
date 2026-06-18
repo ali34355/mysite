@@ -3,7 +3,7 @@ const fs = require('fs');
 const app = express();
 
 app.get('/', (req, res) => {
-  const ip = req.headers['x-forwarded-for'] || req.socket.remoteAddress;
+  const ip = req.headers['x-forwarded-for']?.split(',')[0] || req.socket.remoteAddress;
   const time = new Date().toLocaleString();
 
   fs.appendFileSync('visitors.txt', `IP: ${ip} | Time: ${time}\n`);
